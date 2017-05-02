@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/mui.picker.min.css">
+		<link rel="stylesheet" href="css/mui.poppicker.css">
+	</head>
+
+	<body>
+		<button class="j-address">121313</button>
+		<input class="j-output" placeholder="">
+		<script src="js/jquery.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/mui.poppicker.js"></script>
+		<script src="js/mui.picker.js"></script>
+		<script>
+			var picker = new mui.PopPicker({
+				layer:3,
+				button:['cancel','ok']
+			});
+			$.ajax({
+				type: 'post',
+				url: 'city.json',
+				dataType:"json",
+				success: function(json){
+					picker.setData(json.data);
+				},
+				error: function(xhr, type){
+					alert("页面出错,请返回");
+				}
+			});
+			$('.j-address').on('click',function(){
+				picker.show(function(selectItems){
+					$('.j-output').val(selectItems[0].areaName+selectItems[1].areaName+selectItems[2].areaName);
+
+				});
+			});
+
+		</script>
+	</body>
+
+</html>
